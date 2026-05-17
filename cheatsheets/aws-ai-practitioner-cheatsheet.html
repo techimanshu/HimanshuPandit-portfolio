@@ -408,6 +408,10 @@
   <button class="filter-btn" data-filter="data">Data & Storage</button>
   <button class="filter-btn" data-filter="responsible">Responsible AI</button>
   <button class="filter-btn" data-filter="ml-concepts">ML Concepts</button>
+  <button class="filter-btn" data-filter="bedrock-deep">Bedrock Deep-Dive</button>
+  <button class="filter-btn" data-filter="ml-process">ML Process</button>
+  <button class="filter-btn" data-filter="security">Security & Audit</button>
+  <button class="filter-btn" data-filter="hardware">Hardware & Infra</button>
 </div>
 
 <main>
@@ -1536,6 +1540,568 @@
 
   </div>
 
+
+  <!-- ========== BEDROCK DEEP-DIVE ========== -->
+  <div class="section-header" data-section="bedrock-deep">
+    <div class="section-dot" style="background:#c084fc"></div>
+    <h2>Amazon Bedrock — Deep Dive</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid" data-section="bedrock-deep">
+
+    <!-- Bedrock Fine-Tuning -->
+    <div class="card" data-category="bedrock-deep" style="--card-accent:#c084fc;--card-icon-bg:rgba(192,132,252,0.12);--card-tag-bg:rgba(192,132,252,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🎯</div>
+        <div class="card-titles">
+          <div class="card-name">Bedrock — Fine-Tuning a Model</div>
+          <div class="card-full">Custom model adaptation on Bedrock</div>
+        </div>
+        <div class="card-tag">BEDROCK</div>
+      </div>
+      <div class="card-desc">Adapt a foundation model to your specific domain or task by training it on your labeled data — without managing any infrastructure. Fine-tuned models are private to your AWS account.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Types</span><span class="detail-value">Fine-tuning (supervised, task-specific) and Continued Pre-training (domain adaptation on unlabeled text)</span></div>
+        <div class="detail-row"><span class="detail-label">Supported FMs</span><span class="detail-value">Amazon Titan Text, Cohere Command, Meta Llama 2 — not all models support fine-tuning</span></div>
+        <div class="detail-row"><span class="detail-label">Data Format</span><span class="detail-value">JSONL files in S3 — prompt/completion pairs for instruction fine-tuning</span></div>
+        <div class="detail-row"><span class="detail-label">Provisioned TP</span><span class="detail-value">Fine-tuned models require Provisioned Throughput (not on-demand) to be deployed for inference</span></div>
+        <div class="detail-row"><span class="detail-label">vs RAG</span><span class="detail-value">Fine-tune = bake style/domain knowledge into weights (expensive, static). RAG = inject facts at runtime (cheap, dynamic, up-to-date)</span></div>
+        <div class="detail-row"><span class="detail-label">Cost</span><span class="detail-value">Charged per training token + provisioned throughput commitment (hourly)</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Fine-tuning on Bedrock requires Provisioned Throughput — you CANNOT use on-demand pricing for custom models. Continued Pre-training = large unlabeled domain corpus. Fine-tuning = small labeled prompt-completion pairs. Fine-tune for style/format; RAG for factual knowledge.</div>
+    </div>
+
+    <!-- Bedrock FM Evaluation -->
+    <div class="card" data-category="bedrock-deep" style="--card-accent:#c084fc;--card-icon-bg:rgba(192,132,252,0.12);--card-tag-bg:rgba(192,132,252,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🧪</div>
+        <div class="card-titles">
+          <div class="card-name">Bedrock — FM Evaluation</div>
+          <div class="card-full">Foundation Model Evaluation in Bedrock</div>
+        </div>
+        <div class="card-tag">BEDROCK</div>
+      </div>
+      <div class="card-desc">Systematically evaluate and compare foundation models on your specific use case and data to choose the best FM — or measure how well your fine-tuned model improved over the base model.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Evaluation Types</span><span class="detail-value">Automatic (algorithmic metrics) and Human evaluation (bring your own workforce or AWS-managed team)</span></div>
+        <div class="detail-row"><span class="detail-label">Auto Metrics</span><div class="pill-list"><span class="pill">ROUGE (summarization)</span><span class="pill">BLEU (translation)</span><span class="pill">BERTScore</span><span class="pill">Accuracy</span><span class="pill">Robustness</span></div></div>
+        <div class="detail-row"><span class="detail-label">Human Metrics</span><span class="detail-value">Thumbs up/down, rating scales, pairwise comparison — for fluency, coherence, helpfulness, harmlessness</span></div>
+        <div class="detail-row"><span class="detail-label">Use Case</span><span class="detail-value">Compare Claude vs Titan vs Llama for your specific task before committing to a model</span></div>
+        <div class="detail-row"><span class="detail-label">LLM-as-Judge</span><span class="detail-value">Use a powerful LLM (e.g. Claude) to automatically grade another model's responses at scale</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Bedrock Model Evaluation = compare FMs before choosing. Two modes: Automatic (ROUGE/BLEU, objective tasks) and Human (subjective quality). LLM-as-Judge is a scalable alternative to human evaluation. ROUGE = recall-based (good for summarization). BLEU = precision-based (good for translation).</div>
+    </div>
+
+    <!-- Bedrock RAG & Knowledge Base -->
+    <div class="card" data-category="bedrock-deep" style="--card-accent:#c084fc;--card-icon-bg:rgba(192,132,252,0.12);--card-tag-bg:rgba(192,132,252,0.12)">
+      <div class="card-head">
+        <div class="card-icon">📚</div>
+        <div class="card-titles">
+          <div class="card-name">Bedrock — RAG & Knowledge Bases</div>
+          <div class="card-full">Retrieval-Augmented Generation on Bedrock</div>
+        </div>
+        <div class="card-tag">BEDROCK</div>
+      </div>
+      <div class="card-desc">Bedrock Knowledge Bases is a fully managed RAG service: ingest your documents, automatically chunk and embed them, store vectors, and retrieve at query time to ground LLM responses in your own data.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Pipeline</span><span class="detail-value">S3 docs → Bedrock chunks text → Titan Embeddings creates vectors → stored in vector DB → query embeds → similarity search → top-k chunks → LLM generates answer</span></div>
+        <div class="detail-row"><span class="detail-label">Vector Stores</span><div class="pill-list"><span class="pill">OpenSearch Serverless</span><span class="pill">Aurora pgvector</span><span class="pill">Pinecone</span><span class="pill">Redis Enterprise</span><span class="pill">MongoDB Atlas</span></div></div>
+        <div class="detail-row"><span class="detail-label">Data Sources</span><span class="detail-value">S3, Confluence, Salesforce, SharePoint, Web Crawl — auto-synced on schedule</span></div>
+        <div class="detail-row"><span class="detail-label">Chunking</span><span class="detail-value">Fixed size, semantic, hierarchical, or custom Lambda chunking strategies</span></div>
+        <div class="detail-row"><span class="detail-label">Citations</span><span class="detail-value">Bedrock returns source citations with every answer — enables grounding verification</span></div>
+        <div class="detail-row"><span class="detail-label">Guardrails</span><span class="detail-value">Grounding check detects hallucinations by verifying answer against retrieved chunks</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Knowledge Bases = managed RAG. No infrastructure to manage. Reduces hallucinations by grounding in real documents. Returns citations. Sync data sources on a schedule. Pair with Guardrails grounding check to catch when the LLM goes off-script.</div>
+    </div>
+
+    <!-- More GenAI Concepts -->
+    <div class="card" data-category="bedrock-deep" style="--card-accent:#c084fc;--card-icon-bg:rgba(192,132,252,0.12);--card-tag-bg:rgba(192,132,252,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🌐</div>
+        <div class="card-titles">
+          <div class="card-name">More GenAI Concepts</div>
+          <div class="card-full">Tokens, Context Window, Temperature, Top-P, Hallucination</div>
+        </div>
+        <div class="card-tag">BEDROCK</div>
+      </div>
+      <div class="card-desc">Core vocabulary every AI Practitioner must know — how LLMs represent and process text, key inference parameters that control output, and the fundamental limitations to be aware of.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Token</span><span class="detail-value">Smallest unit of text an LLM processes (~4 chars / 0.75 words). Input + output tokens = total cost.</span></div>
+        <div class="detail-row"><span class="detail-label">Context Window</span><span class="detail-value">Max tokens a model can process at once (input + output). E.g., Claude 3 = 200K tokens. Older models = 4K–32K.</span></div>
+        <div class="detail-row"><span class="detail-label">Temperature</span><span class="detail-value">0 = deterministic/factual. 1 = random/creative. Range 0–1 (sometimes 0–2). Controls sampling randomness.</span></div>
+        <div class="detail-row"><span class="detail-label">Top-P (nucleus)</span><span class="detail-value">Sample from the smallest set of tokens whose cumulative probability ≥ P. Top-P=0.9 = more focused than 1.0.</span></div>
+        <div class="detail-row"><span class="detail-label">Top-K</span><span class="detail-value">Sample from the K most likely next tokens only. Lower K = more focused output.</span></div>
+        <div class="detail-row"><span class="detail-label">Hallucination</span><span class="detail-value">LLM generates confident but factually incorrect information. Mitigate with RAG, Guardrails grounding check, lower temperature.</span></div>
+        <div class="detail-row"><span class="detail-label">Inference Params</span><div class="pill-list"><span class="pill">max_tokens</span><span class="pill">temperature</span><span class="pill">top_p</span><span class="pill">top_k</span><span class="pill">stop_sequences</span></div></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Temperature=0 → always most likely token (good for factual QA/code). Temperature=1 → creative writing. Top-P and Top-K both filter the sampling distribution. Hallucination is the #1 GenAI risk — answer: RAG + Guardrails. Context window limits = why chunking in RAG matters.</div>
+    </div>
+
+    <!-- Bedrock CloudWatch Integration -->
+    <div class="card" data-category="bedrock-deep" style="--card-accent:#c084fc;--card-icon-bg:rgba(192,132,252,0.12);--card-tag-bg:rgba(192,132,252,0.12)">
+      <div class="card-head">
+        <div class="card-icon">📊</div>
+        <div class="card-titles">
+          <div class="card-name">Bedrock — CloudWatch Integration</div>
+          <div class="card-full">Monitoring, logging & observability for Bedrock</div>
+        </div>
+        <div class="card-tag">BEDROCK</div>
+      </div>
+      <div class="card-desc">Amazon Bedrock integrates with CloudWatch for metrics, logs, and alarms — giving you full observability into model invocations, latency, token usage, errors, and Guardrails activity.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">CloudWatch Metrics</span><div class="pill-list"><span class="pill">InvocationLatency</span><span class="pill">InputTokenCount</span><span class="pill">OutputTokenCount</span><span class="pill">InvocationClientErrors</span><span class="pill">InvocationThrottles</span></div></div>
+        <div class="detail-row"><span class="detail-label">Model Invocation Logging</span><span class="detail-value">Enable to capture full request/response payloads to CloudWatch Logs or S3 — for debugging, compliance, and audit</span></div>
+        <div class="detail-row"><span class="detail-label">Guardrails Metrics</span><span class="detail-value">Track how often Guardrails blocks requests, which policies trigger, and intervention rates</span></div>
+        <div class="detail-row"><span class="detail-label">Alarms</span><span class="detail-value">Set alarms on latency spikes, error rates, or token usage to trigger SNS/Lambda responses</span></div>
+        <div class="detail-row"><span class="detail-label">CloudTrail</span><span class="detail-value">All Bedrock API calls (CreateModelInvocationJob, InvokeModel, etc.) logged in CloudTrail for audit</span></div>
+        <div class="detail-row"><span class="detail-label">Dashboard</span><span class="detail-value">Build CloudWatch dashboards to visualize token throughput, cost proxies, and latency percentiles</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Model Invocation Logging must be explicitly enabled — it's off by default. Logs go to CloudWatch Logs or S3. CloudTrail = who called which Bedrock API (management events). CloudWatch = what the model returned and how fast (operational metrics). Both needed for full observability.</div>
+    </div>
+
+    <!-- Bedrock Pricing -->
+    <div class="card" data-category="bedrock-deep" style="--card-accent:#c084fc;--card-icon-bg:rgba(192,132,252,0.12);--card-tag-bg:rgba(192,132,252,0.12)">
+      <div class="card-head">
+        <div class="card-icon">💰</div>
+        <div class="card-titles">
+          <div class="card-name">Bedrock — Pricing & Other Features</div>
+          <div class="card-full">Cost models, Agents, Watermarking, and Batch</div>
+        </div>
+        <div class="card-tag">BEDROCK</div>
+      </div>
+      <div class="card-desc">Bedrock offers three pricing models and several advanced features including Agents for multi-step automation, Batch Inference for large-scale processing, and model watermarking for provenance.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">On-Demand</span><span class="detail-value">Pay per token (input + output), no commitment. Best for unpredictable or low-volume workloads.</span></div>
+        <div class="detail-row"><span class="detail-label">Provisioned TP</span><span class="detail-value">Reserve model capacity (hourly commitment). Required for fine-tuned/custom models. Lower per-token cost at scale.</span></div>
+        <div class="detail-row"><span class="detail-label">Batch Inference</span><span class="detail-value">Submit large JSONL job to S3 → Bedrock processes asynchronously → results back to S3. Up to 50% cheaper than on-demand.</span></div>
+        <div class="detail-row"><span class="detail-label">Bedrock Agents</span><span class="detail-value">Autonomous multi-step agents: plan tasks, call Lambda functions/APIs, query Knowledge Bases, take actions. Uses ReAct framework internally.</span></div>
+        <div class="detail-row"><span class="detail-label">Watermarking</span><span class="detail-value">Amazon Titan Image Generator applies invisible watermarks to AI-generated images for provenance tracking (C2PA standard)</span></div>
+        <div class="detail-row"><span class="detail-label">Model Access</span><span class="detail-value">Must request access to each FM in Bedrock console — not all models available in all regions</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Batch Inference = async + cheapest option (50% discount). On-demand = default. Provisioned = custom models + committed high volume. Bedrock Agents = multi-step task automation using ReAct. Watermarking = Titan Image Generator only. Request model access before using!</div>
+    </div>
+
+    <!-- Prompt Engineering Techniques -->
+    <div class="card" data-category="bedrock-deep" style="--card-accent:#c084fc;--card-icon-bg:rgba(192,132,252,0.12);--card-tag-bg:rgba(192,132,252,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🧩</div>
+        <div class="card-titles">
+          <div class="card-name">Prompt Engineering Techniques</div>
+          <div class="card-full">Advanced prompting strategies for LLMs</div>
+        </div>
+        <div class="card-tag">BEDROCK</div>
+      </div>
+      <div class="card-desc">Systematic techniques to improve LLM output quality without modifying model weights — from basic instruction design to complex multi-agent reasoning frameworks.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Zero-Shot</span><span class="detail-value">No examples — just clear instructions. Best for simple, well-defined tasks the model already knows.</span></div>
+        <div class="detail-row"><span class="detail-label">Few-Shot</span><span class="detail-value">Provide 2–8 input/output examples in the prompt. Teaches format and style. Best for novel formats.</span></div>
+        <div class="detail-row"><span class="detail-label">Chain-of-Thought</span><span class="detail-value">"Think step by step" — forces intermediate reasoning. Dramatically improves math, logic, multi-step problems.</span></div>
+        <div class="detail-row"><span class="detail-label">Self-Consistency</span><span class="detail-value">Sample multiple CoT paths → take majority vote answer. More robust than single CoT pass.</span></div>
+        <div class="detail-row"><span class="detail-label">Tree of Thought</span><span class="detail-value">Explore multiple reasoning branches simultaneously, evaluate and backtrack. For complex problem-solving.</span></div>
+        <div class="detail-row"><span class="detail-label">ReAct</span><span class="detail-value">Reason + Act: model interleaves reasoning steps with tool calls (search, calculator). Powers Bedrock Agents.</span></div>
+        <div class="detail-row"><span class="detail-label">System Prompt</span><span class="detail-value">Sets persistent context/persona for entire conversation. "You are a helpful AWS expert who only answers AWS questions."</span></div>
+        <div class="detail-row"><span class="detail-label">Prompt Injection</span><span class="detail-value">Attack where malicious input overrides system prompt. Bedrock Guardrails detects and blocks prompt attacks.</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Know all 6 techniques for the exam. CoT = step-by-step reasoning (add "let's think step by step"). Few-shot = show examples. ReAct = Bedrock Agents use this. Prompt injection is a key security risk — mitigate with Guardrails. System prompt = persists across turns.</div>
+    </div>
+
+    <!-- Amazon Q Business -->
+    <div class="card" data-category="bedrock-deep" style="--card-accent:#c084fc;--card-icon-bg:rgba(192,132,252,0.12);--card-tag-bg:rgba(192,132,252,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🏢</div>
+        <div class="card-titles">
+          <div class="card-name">Amazon Q Business — Deep Dive</div>
+          <div class="card-full">Enterprise GenAI assistant with 40+ data connectors</div>
+        </div>
+        <div class="card-tag">GEN-AI</div>
+      </div>
+      <div class="card-desc">Fully managed GenAI assistant for the enterprise. Connects to your company's data sources, respects existing IAM permissions, and lets employees ask questions in natural language and take actions.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Architecture</span><span class="detail-value">Data connectors → Q indexes documents → IAM Identity Center enforces access → LLM generates answer with citations</span></div>
+        <div class="detail-row"><span class="detail-label">Data Sources</span><div class="pill-list"><span class="pill">S3</span><span class="pill">Confluence</span><span class="pill">Salesforce</span><span class="pill">SharePoint</span><span class="pill">Jira</span><span class="pill">Zendesk</span><span class="pill">Gmail</span><span class="pill">Slack</span></div></div>
+        <div class="detail-row"><span class="detail-label">Permission Model</span><span class="detail-value">IAM Identity Center integration — users only see answers from documents they already have permission to read</span></div>
+        <div class="detail-row"><span class="detail-label">Actions (Plugins)</span><span class="detail-value">Q can take actions: create Jira tickets, update Salesforce records, send Slack messages via plugins</span></div>
+        <div class="detail-row"><span class="detail-label">Admin Controls</span><span class="detail-value">Topic blocking, response customization, blocklist/allowlist for topics, custom response guardrails</span></div>
+        <div class="detail-row"><span class="detail-label">Pricing</span><span class="detail-value">Per-user per-month subscription (Q Business Lite and Q Business Pro tiers)</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Q Business respects document-level permissions via IAM Identity Center — users can't get answers from documents they can't access. This is the key differentiator vs building RAG yourself. Plugins = Q can act, not just answer. Q Developer = coding assistant (separate product).</div>
+    </div>
+
+    <!-- Amazon Q for AWS Services -->
+    <div class="card" data-category="bedrock-deep" style="--card-accent:#c084fc;--card-icon-bg:rgba(192,132,252,0.12);--card-tag-bg:rgba(192,132,252,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🔧</div>
+        <div class="card-titles">
+          <div class="card-name">Amazon Q for AWS Services</div>
+          <div class="card-full">Q Developer, Q in QuickSight, Q in Connect</div>
+        </div>
+        <div class="card-tag">GEN-AI</div>
+      </div>
+      <div class="card-desc">Amazon Q is embedded across AWS services to bring GenAI assistance to each context — coding in IDEs, BI in QuickSight, customer service in Connect, and network troubleshooting in the console.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Q Developer</span><span class="detail-value">IDE plugin (VS Code, JetBrains, CLI): code completion, generate from comments, explain code, fix bugs, write tests, security scan, CLI suggestions</span></div>
+        <div class="detail-row"><span class="detail-label">Q in QuickSight</span><span class="detail-value">Ask BI questions in plain English → auto-generates charts, dashboards, and data narratives. "Show me revenue by region last quarter."</span></div>
+        <div class="detail-row"><span class="detail-label">Q in Connect</span><span class="detail-value">Real-time agent assist in Amazon Connect contact center — suggests answers to agents during live calls from your knowledge base</span></div>
+        <div class="detail-row"><span class="detail-label">Q in AWS Console</span><span class="detail-value">Ask AWS operational questions, troubleshoot errors, explain IAM policies, network reachability analysis</span></div>
+        <div class="detail-row"><span class="detail-label">Q Developer Transform</span><span class="detail-value">Automated code transformation: Java 8 → Java 17 upgrade, mainframe modernization, VMware migration</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Know which Q product fits which scenario: IDE/coding = Q Developer. BI/dashboards = Q in QuickSight. Contact center agent assist = Q in Connect. Enterprise data chat = Q Business. Code modernization = Q Developer Transform.</div>
+    </div>
+
+  </div>
+
+  <!-- ========== ML PROCESS ========== -->
+  <div class="section-header" data-section="ml-process">
+    <div class="section-dot" style="background:#34d399"></div>
+    <h2>ML Process, Evaluation & Inference</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid" data-section="ml-process">
+
+    <!-- Phases of ML Project -->
+    <div class="card" data-category="ml-process" style="--card-accent:#34d399;--card-icon-bg:rgba(52,211,153,0.12);--card-tag-bg:rgba(52,211,153,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🗺️</div>
+        <div class="card-titles">
+          <div class="card-name">Phases of a Machine Learning Project</div>
+          <div class="card-full">End-to-end ML lifecycle</div>
+        </div>
+        <div class="card-tag">ML PROCESS</div>
+      </div>
+      <div class="card-desc">A structured ML project follows well-defined phases from business understanding through deployment and monitoring. Skipping phases is the #1 cause of ML project failure.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">1. Business Understanding</span><span class="detail-value">Define the problem, success metrics, ROI, and whether ML is appropriate. Identify stakeholders.</span></div>
+        <div class="detail-row"><span class="detail-label">2. Data Collection</span><span class="detail-value">Gather raw data from databases, APIs, sensors, third-party providers. Assess data quality and quantity.</span></div>
+        <div class="detail-row"><span class="detail-label">3. Data Preparation</span><span class="detail-value">Clean (handle missing values, outliers), transform (normalize, encode categoricals), feature engineer, split train/val/test.</span></div>
+        <div class="detail-row"><span class="detail-label">4. Model Training</span><span class="detail-value">Select algorithm, set hyperparameters, train on training set, evaluate on validation set, iterate.</span></div>
+        <div class="detail-row"><span class="detail-label">5. Model Evaluation</span><span class="detail-value">Assess on held-out test set using business-relevant metrics. Check for bias with Clarify.</span></div>
+        <div class="detail-row"><span class="detail-label">6. Deployment</span><span class="detail-value">Package model, deploy to endpoint (real-time, serverless, async, or batch). A/B test with shadow deployment.</span></div>
+        <div class="detail-row"><span class="detail-label">7. Monitoring</span><span class="detail-value">Track data drift, model quality degradation, bias drift with SageMaker Model Monitor. Retrain as needed.</span></div>
+        <div class="detail-row"><span class="detail-label">AWS Mapping</span><span class="detail-value">Ground Truth → Glue/DataBrew → SageMaker Training → Clarify → Model Registry → Endpoint → Model Monitor</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Know all 7 phases and the AWS service for each. Data prep is typically 80% of project time. Test set must NEVER be seen during training. Model Monitor catches degradation post-deployment. The loop is iterative — models need retraining when data distribution shifts.</div>
+    </div>
+
+    <!-- Hyperparameters -->
+    <div class="card" data-category="ml-process" style="--card-accent:#34d399;--card-icon-bg:rgba(52,211,153,0.12);--card-tag-bg:rgba(52,211,153,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🎛️</div>
+        <div class="card-titles">
+          <div class="card-name">Hyperparameters</div>
+          <div class="card-full">Configuration values set before training begins</div>
+        </div>
+        <div class="card-tag">ML PROCESS</div>
+      </div>
+      <div class="card-desc">Hyperparameters are the "knobs" you configure before training — unlike model parameters (weights) which are learned. Finding the best hyperparameters is called hyperparameter optimization (HPO) or tuning.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Common HPs</span><div class="pill-list"><span class="pill">Learning rate</span><span class="pill">Batch size</span><span class="pill">Epochs</span><span class="pill">Hidden layers/units</span><span class="pill">Dropout rate</span><span class="pill">L1/L2 lambda</span><span class="pill">Max depth (trees)</span></div></div>
+        <div class="detail-row"><span class="detail-label">Learning Rate</span><span class="detail-value">Controls step size in gradient descent. Too high → divergence. Too low → slow convergence. Most critical HP.</span></div>
+        <div class="detail-row"><span class="detail-label">Batch Size</span><span class="detail-value">Samples per gradient update. Large batch = stable gradients, needs more memory. Small = noisy but often generalizes better.</span></div>
+        <div class="detail-row"><span class="detail-label">Epochs</span><span class="detail-value">Full passes over training data. Too many → overfitting. Use early stopping to find optimal epoch automatically.</span></div>
+        <div class="detail-row"><span class="detail-label">HPO Methods</span><span class="detail-value">Grid search (exhaustive), Random search (efficient), Bayesian optimization (smart, learns from trials)</span></div>
+        <div class="detail-row"><span class="detail-label">AWS HPO</span><span class="detail-value">SageMaker Automatic Model Tuning (AMT) uses Bayesian optimization to find best hyperparameters efficiently</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Hyperparameters = set BEFORE training (not learned). Parameters = weights learned DURING training. SageMaker Automatic Model Tuning = Bayesian HPO. If model overfits → increase regularization HPs (dropout, L2 lambda, reduce epochs). If underfits → more capacity (larger network, more epochs).</div>
+    </div>
+
+    <!-- Machine Learning Inferencing -->
+    <div class="card" data-category="ml-process" style="--card-accent:#34d399;--card-icon-bg:rgba(52,211,153,0.12);--card-tag-bg:rgba(52,211,153,0.12)">
+      <div class="card-head">
+        <div class="card-icon">⚡</div>
+        <div class="card-titles">
+          <div class="card-name">Machine Learning Inferencing</div>
+          <div class="card-full">Deployment modes: Real-time, Serverless, Async, Batch</div>
+        </div>
+        <div class="card-tag">ML PROCESS</div>
+      </div>
+      <div class="card-desc">Inference is using a trained model to make predictions on new data. SageMaker offers four deployment modes to match different latency, scale, and cost requirements.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Real-time Endpoint</span><span class="detail-value">Always-on HTTPS endpoint. Low latency (&lt;1s). Pay for instance hours even when idle. Best for interactive apps.</span></div>
+        <div class="detail-row"><span class="detail-label">Serverless Inference</span><span class="detail-value">Scales to zero when idle. Cold start latency (1–30s). Pay per invocation + compute. Best for intermittent traffic.</span></div>
+        <div class="detail-row"><span class="detail-label">Async Inference</span><span class="detail-value">Queued requests, results to S3. No timeout (handles large payloads). Scales to zero. Best for long-running jobs (&gt;60s).</span></div>
+        <div class="detail-row"><span class="detail-label">Batch Transform</span><span class="detail-value">Process entire dataset at once (S3 input → S3 output). No endpoint needed. Best for offline scoring of large datasets.</span></div>
+        <div class="detail-row"><span class="detail-label">Multi-Model Endpoint</span><span class="detail-value">Host thousands of models on one endpoint. Models dynamically loaded/unloaded. Great for per-customer models.</span></div>
+        <div class="detail-row"><span class="detail-label">Shadow Testing</span><span class="detail-value">Route % of traffic to new model variant simultaneously (shadow) — compare outputs before full cutover</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Know when to use each: Real-time = interactive, low latency. Serverless = infrequent, can tolerate cold start. Async = large payloads, long processing time. Batch = offline/scheduled scoring. Multi-model = cost optimization for many similar models. Classic exam question!</div>
+    </div>
+
+    <!-- When is ML not appropriate -->
+    <div class="card" data-category="ml-process" style="--card-accent:#34d399;--card-icon-bg:rgba(52,211,153,0.12);--card-tag-bg:rgba(52,211,153,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🚫</div>
+        <div class="card-titles">
+          <div class="card-name">When is ML NOT Appropriate?</div>
+          <div class="card-full">Knowing when NOT to use machine learning</div>
+        </div>
+        <div class="card-tag">ML PROCESS</div>
+      </div>
+      <div class="card-desc">ML is powerful but not always the right tool. Understanding when traditional software, rules-based systems, or simpler analytics are better is a key practitioner skill.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Insufficient Data</span><span class="detail-value">ML needs enough labeled examples to generalize. Rule of thumb: fewer than hundreds of examples → use rules or heuristics instead.</span></div>
+        <div class="detail-row"><span class="detail-label">Explainability Required</span><span class="detail-value">Regulated industries (healthcare, finance, legal) may require fully explainable decisions → simple rule-based systems or linear models.</span></div>
+        <div class="detail-row"><span class="detail-label">Problem is Deterministic</span><span class="detail-value">If the problem has a perfect algorithmic solution (sorting, routing, arithmetic) — use the algorithm. ML adds unnecessary complexity.</span></div>
+        <div class="detail-row"><span class="detail-label">Cost > Benefit</span><span class="detail-value">If ML infrastructure, data labeling, and maintenance cost exceeds the business value delivered — don't use ML.</span></div>
+        <div class="detail-row"><span class="detail-label">Static/Small Problem</span><span class="detail-value">If rules rarely change and there are &lt;20 if-else rules that cover all cases — maintain the rules.</span></div>
+        <div class="detail-row"><span class="detail-label">Real-time Hard Rules</span><span class="detail-value">Safety-critical systems where probabilistic errors are unacceptable (aircraft control, drug dispensing). Combine ML with hard guardrails.</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Classic exam scenario: "Company wants to use ML for X — is this appropriate?" Red flags: no training data, fully deterministic problem, need 100% explainability, marginal business value. When in doubt: is there a pattern in data that ML can learn? If yes → ML. If it's just rules → code the rules.</div>
+    </div>
+
+    <!-- Model Evaluation Metrics Deep Dive -->
+    <div class="card" data-category="ml-process" style="--card-accent:#34d399;--card-icon-bg:rgba(52,211,153,0.12);--card-tag-bg:rgba(52,211,153,0.12)">
+      <div class="card-head">
+        <div class="card-icon">📐</div>
+        <div class="card-titles">
+          <div class="card-name">Model Evaluation Metrics — Deep Dive</div>
+          <div class="card-full">Confusion matrix, ROC-AUC, BLEU, ROUGE, METEOR, BERTScore</div>
+        </div>
+        <div class="card-tag">ML PROCESS</div>
+      </div>
+      <div class="card-desc">Comprehensive reference for all evaluation metrics across ML task types — classification, regression, NLP generation, and retrieval. Choosing the wrong metric can lead to deploying bad models.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Confusion Matrix</span><span class="detail-value">TP (correct positive), TN (correct negative), FP (false alarm / Type I), FN (missed detection / Type II)</span></div>
+        <div class="detail-row"><span class="detail-label">Precision</span><span class="detail-value">TP / (TP+FP) — "Of all predicted positives, how many were correct?" Minimize FP. Use when false alarms are costly.</span></div>
+        <div class="detail-row"><span class="detail-label">Recall (Sensitivity)</span><span class="detail-value">TP / (TP+FN) — "Of all actual positives, how many did we catch?" Minimize FN. Use for fraud/disease detection.</span></div>
+        <div class="detail-row"><span class="detail-label">F1 Score</span><span class="detail-value">2·P·R / (P+R) — harmonic mean of precision and recall. Use when class imbalance exists.</span></div>
+        <div class="detail-row"><span class="detail-label">AUC-ROC</span><span class="detail-value">Area under ROC curve (TPR vs FPR). 0.5 = random, 1.0 = perfect. Threshold-independent classification metric.</span></div>
+        <div class="detail-row"><span class="detail-label">BLEU</span><span class="detail-value">Precision-based n-gram overlap (translation). Compares generated text to reference. Range 0–1.</span></div>
+        <div class="detail-row"><span class="detail-label">ROUGE</span><span class="detail-value">Recall-based n-gram overlap (summarization). ROUGE-1 (unigrams), ROUGE-2 (bigrams), ROUGE-L (longest common subseq).</span></div>
+        <div class="detail-row"><span class="detail-label">BERTScore</span><span class="detail-value">Uses BERT embeddings to compute semantic similarity between generated and reference text. Better than n-gram metrics.</span></div>
+        <div class="detail-row"><span class="detail-label">Perplexity</span><span class="detail-value">How well the model predicts a sample. Lower = better. Measures language model quality. Not used for task-specific evaluation.</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Scenario: "minimize missed fraudulent transactions" → maximize Recall. "minimize false fraud alerts to customers" → maximize Precision. Imbalanced dataset → don't use Accuracy. BLEU = translation. ROUGE = summarization. BERTScore = semantic quality (best for GenAI). Bedrock Evaluation uses ROUGE + BERTScore.</div>
+    </div>
+
+    <!-- ML Terms -->
+    <div class="card" data-category="ml-process" style="--card-accent:#34d399;--card-icon-bg:rgba(52,211,153,0.12);--card-tag-bg:rgba(52,211,153,0.12)">
+      <div class="card-head">
+        <div class="card-icon">📖</div>
+        <div class="card-titles">
+          <div class="card-name">ML Terms You May Encounter</div>
+          <div class="card-full">Glossary of key ML terminology for the exam</div>
+        </div>
+        <div class="card-tag">ML PROCESS</div>
+      </div>
+      <div class="card-desc">Essential ML vocabulary tested on the AI Practitioner exam — from foundational math concepts to practical ML operations terms.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Supervised</span><span class="detail-value">Training on labeled data (input→output pairs). Examples: classification, regression.</span></div>
+        <div class="detail-row"><span class="detail-label">Unsupervised</span><span class="detail-value">Find patterns in unlabeled data. Examples: clustering (K-Means), dimensionality reduction (PCA), anomaly detection.</span></div>
+        <div class="detail-row"><span class="detail-label">Semi-Supervised</span><span class="detail-value">Small labeled dataset + large unlabeled dataset. Common when labeling is expensive.</span></div>
+        <div class="detail-row"><span class="detail-label">Self-Supervised</span><span class="detail-value">Labels generated from the data itself. BERT (masked tokens), GPT (next token prediction). Foundation of LLMs.</span></div>
+        <div class="detail-row"><span class="detail-label">Reinforcement Learning</span><span class="detail-value">Agent learns by trial-and-error maximizing reward signal. RLHF uses RL to align LLMs to human preferences.</span></div>
+        <div class="detail-row"><span class="detail-label">Transfer Learning</span><span class="detail-value">Take a pre-trained model and fine-tune on new task. Requires far less data and compute than training from scratch.</span></div>
+        <div class="detail-row"><span class="detail-label">Gradient Descent</span><span class="detail-value">Optimization algorithm that iteratively updates weights in direction of negative gradient (steepest descent) to minimize loss.</span></div>
+        <div class="detail-row"><span class="detail-label">Backpropagation</span><span class="detail-value">Algorithm to compute gradients through the network using chain rule — enables gradient descent in deep networks.</span></div>
+        <div class="detail-row"><span class="detail-label">Normalization</span><span class="detail-value">Scale features to same range (Min-Max: 0–1) or distribution (Z-score: μ=0, σ=1). Critical for distance-based models.</span></div>
+        <div class="detail-row"><span class="detail-label">Dimensionality Reduction</span><span class="detail-value">PCA, t-SNE, UMAP — reduce feature count while preserving information. Helps visualization and reduces overfitting.</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Know the 4 learning paradigms: Supervised (labeled), Unsupervised (unlabeled), Semi-supervised (few labeled), Reinforcement (reward). Self-supervised = how LLMs are pre-trained. Transfer learning = why fine-tuning works. Normalization is a data preprocessing step, not model training.</div>
+    </div>
+
+  </div>
+
+  <!-- ========== SECURITY & AUDIT ========== -->
+  <div class="section-header" data-section="security">
+    <div class="section-dot" style="background:#f87171"></div>
+    <h2>Security, Compliance & Audit for AI</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid" data-section="security">
+
+    <!-- GenAI Challenges -->
+    <div class="card" data-category="security" style="--card-accent:#f87171;--card-icon-bg:rgba(248,113,113,0.12);--card-tag-bg:rgba(248,113,113,0.12)">
+      <div class="card-head">
+        <div class="card-icon">⚠️</div>
+        <div class="card-titles">
+          <div class="card-name">GenAI Challenges</div>
+          <div class="card-full">Risks, limitations & responsible deployment concerns</div>
+        </div>
+        <div class="card-tag">RESPONSIBLE AI</div>
+      </div>
+      <div class="card-desc">Generative AI introduces unique challenges beyond traditional ML — understanding these risks is essential for the AI Practitioner exam and for responsible real-world deployment.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Hallucination</span><span class="detail-value">Model generates convincing but factually incorrect content. Mitigation: RAG, Guardrails grounding, lower temperature, human review.</span></div>
+        <div class="detail-row"><span class="detail-label">Toxicity</span><span class="detail-value">Model produces harmful, offensive, or inappropriate content. Mitigation: Bedrock Guardrails content filtering, RLHF alignment.</span></div>
+        <div class="detail-row"><span class="detail-label">Bias & Fairness</span><span class="detail-value">Training data biases reflected in model outputs (gender, race, etc.). Mitigation: diverse training data, bias evaluation, Clarify.</span></div>
+        <div class="detail-row"><span class="detail-label">Prompt Injection</span><span class="detail-value">Malicious user input overrides system prompt instructions. Mitigation: Bedrock Guardrails prompt attack detection, input validation.</span></div>
+        <div class="detail-row"><span class="detail-label">Data Privacy</span><span class="detail-value">Risk of PII in training data being reproduced in outputs. Mitigation: data anonymization, PII redaction with Comprehend, Guardrails sensitive info filtering.</span></div>
+        <div class="detail-row"><span class="detail-label">IP / Copyright</span><span class="detail-value">Generated content may reproduce copyrighted training data. Mitigation: watermarking, IP indemnification policies (Bedrock offers some coverage).</span></div>
+        <div class="detail-row"><span class="detail-label">Cost Unpredictability</span><span class="detail-value">Token costs can spike with complex prompts. Mitigation: set max_tokens, use Batch Inference, monitor with CloudWatch.</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Hallucination = biggest GenAI risk. Fix = RAG + Guardrails. Prompt injection = security attack on LLMs. Fix = Guardrails prompt attack detection. Data privacy = PII in prompts/outputs. Fix = Comprehend PII redaction + Guardrails sensitive info. Know the risk → mitigation pairs.</div>
+    </div>
+
+    <!-- AWS Artifact -->
+    <div class="card" data-category="security" style="--card-accent:#f87171;--card-icon-bg:rgba(248,113,113,0.12);--card-tag-bg:rgba(248,113,113,0.12)">
+      <div class="card-head">
+        <div class="card-icon">📋</div>
+        <div class="card-titles">
+          <div class="card-name">AWS Artifact</div>
+          <div class="card-full">Compliance reports & AWS agreements portal</div>
+        </div>
+        <div class="card-tag">SECURITY</div>
+      </div>
+      <div class="card-desc">Self-service portal for on-demand access to AWS compliance documentation, security reports, and agreements — no need to contact AWS support for audit evidence.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Reports</span><span class="detail-value">SOC 1/2/3, PCI DSS, ISO 27001, HIPAA, FedRAMP, GDPR, and 2,500+ security controls documentation</span></div>
+        <div class="detail-row"><span class="detail-label">Agreements</span><span class="detail-value">Business Associate Addendum (BAA for HIPAA), GDPR DPA, NDA — sign and manage from the console</span></div>
+        <div class="detail-row"><span class="detail-label">AI/ML Relevance</span><span class="detail-value">Download compliance reports showing AWS Bedrock/SageMaker infrastructure compliance for auditors and regulators</span></div>
+        <div class="detail-row"><span class="detail-label">Access</span><span class="detail-value">Free, available in AWS Console → Artifact. Some documents require agreement acceptance before download.</span></div>
+        <div class="detail-row"><span class="detail-label">Shared Responsibility</span><span class="detail-value">Artifact shows AWS's compliance (infrastructure). Customer still responsible for their own workload compliance.</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Artifact = download compliance reports and sign legal agreements. If auditors ask "show me AWS HIPAA compliance" → AWS Artifact. BAA = Business Associate Agreement (required for HIPAA). Artifact does NOT audit your resources — that's AWS Audit Manager.</div>
+    </div>
+
+    <!-- AWS Audit Manager -->
+    <div class="card" data-category="security" style="--card-accent:#f87171;--card-icon-bg:rgba(248,113,113,0.12);--card-tag-bg:rgba(248,113,113,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🔍</div>
+        <div class="card-titles">
+          <div class="card-name">AWS Audit Manager</div>
+          <div class="card-full">Continuous compliance evidence collection</div>
+        </div>
+        <div class="card-tag">SECURITY</div>
+      </div>
+      <div class="card-desc">Automates evidence collection for your AWS usage against compliance frameworks (HIPAA, SOC2, PCI-DSS, GDPR). Continuously maps AWS resource configurations to compliance controls.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">How It Works</span><span class="detail-value">Select framework → Audit Manager continuously collects evidence from AWS Config, CloudTrail, Security Hub → generates audit-ready reports</span></div>
+        <div class="detail-row"><span class="detail-label">Frameworks</span><div class="pill-list"><span class="pill">HIPAA</span><span class="pill">SOC 2</span><span class="pill">PCI DSS</span><span class="pill">GDPR</span><span class="pill">FedRAMP</span><span class="pill">Custom frameworks</span></div></div>
+        <div class="detail-row"><span class="detail-label">Evidence Types</span><span class="detail-value">Configuration snapshots, CloudTrail logs, Security Hub findings — all automatically mapped to controls</span></div>
+        <div class="detail-row"><span class="detail-label">AI/ML Use</span><span class="detail-value">Audit SageMaker and Bedrock workloads against AI-specific regulatory frameworks</span></div>
+        <div class="detail-row"><span class="detail-label">vs Artifact</span><span class="detail-value">Artifact = AWS's own compliance docs. Audit Manager = YOUR resources' compliance evidence collection.</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Audit Manager = automates YOUR compliance evidence gathering for auditors. Artifact = downloads AWS's compliance reports. Remember: Artifact = AWS's proof; Audit Manager = your proof. Both are used in compliance scenarios but for different purposes.</div>
+    </div>
+
+    <!-- VPC & Network Security for AI -->
+    <div class="card" data-category="security" style="--card-accent:#f87171;--card-icon-bg:rgba(248,113,113,0.12);--card-tag-bg:rgba(248,113,113,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🔒</div>
+        <div class="card-titles">
+          <div class="card-name">VPC & Network Security for AI</div>
+          <div class="card-full">Network isolation for ML workloads</div>
+        </div>
+        <div class="card-tag">SECURITY</div>
+      </div>
+      <div class="card-desc">Securing AI/ML workloads at the network layer — keeping training data, model artifacts, and inference traffic private using VPCs, endpoints, and security groups.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">SageMaker in VPC</span><span class="detail-value">Training jobs and endpoints run in managed VPC by default. You can specify your own VPC for full isolation (no internet access for training jobs).</span></div>
+        <div class="detail-row"><span class="detail-label">VPC Endpoints</span><span class="detail-value">Interface endpoints (PrivateLink) for SageMaker API, Bedrock API, S3 — keep all traffic on AWS backbone, never hits public internet.</span></div>
+        <div class="detail-row"><span class="detail-label">S3 Endpoint</span><span class="detail-value">Gateway endpoint for S3 — free, routes S3 traffic through AWS network. Critical for training jobs in private subnets that need S3 data.</span></div>
+        <div class="detail-row"><span class="detail-label">Security Groups</span><span class="detail-value">Control inbound/outbound traffic for SageMaker notebook instances, training jobs, and endpoints. Default: deny all.</span></div>
+        <div class="detail-row"><span class="detail-label">NACLs</span><span class="detail-value">Subnet-level stateless firewall — additional layer of network control for ML subnets.</span></div>
+        <div class="detail-row"><span class="detail-label">Bedrock Network</span><span class="detail-value">Bedrock API calls can be made via VPC interface endpoint (com.amazonaws.region.bedrock-runtime) to avoid public internet.</span></div>
+        <div class="detail-row"><span class="detail-label">Data Encryption</span><span class="detail-value">In-transit: TLS 1.2+ for all AWS API calls. At-rest: KMS encryption for S3, EBS volumes (notebooks), SageMaker models.</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>VPC + no internet access + S3 Gateway Endpoint = most secure SageMaker training setup. Without S3 Gateway Endpoint, private subnet training jobs CANNOT access S3 training data. Bedrock VPC endpoint = com.amazonaws.REGION.bedrock-runtime. Always use KMS for data encryption in regulated industries.</div>
+    </div>
+
+    <!-- Security Scenarios -->
+    <div class="card" data-category="security" style="--card-accent:#f87171;--card-icon-bg:rgba(248,113,113,0.12);--card-tag-bg:rgba(248,113,113,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🛡️</div>
+        <div class="card-titles">
+          <div class="card-name">Security Scenarios for AI/ML</div>
+          <div class="card-full">Common exam scenarios and correct security patterns</div>
+        </div>
+        <div class="card-tag">SECURITY</div>
+      </div>
+      <div class="card-desc">Quick-reference guide for the most common AI/ML security scenarios on the exam — matching security requirements to the right AWS service or control.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Prevent data exfil in training</span><span class="detail-value">→ Run SageMaker training job in private VPC with no internet access + S3 VPC Gateway Endpoint + IAM least-privilege role</span></div>
+        <div class="detail-row"><span class="detail-label">Audit all Bedrock calls</span><span class="detail-value">→ Enable CloudTrail (management events) + Model Invocation Logging to S3/CloudWatch Logs</span></div>
+        <div class="detail-row"><span class="detail-label">Prevent harmful GenAI output</span><span class="detail-value">→ Bedrock Guardrails with content filtering + topic denial + sensitive info filtering</span></div>
+        <div class="detail-row"><span class="detail-label">PII in user prompts</span><span class="detail-value">→ Bedrock Guardrails sensitive info redaction OR pre-process with Amazon Comprehend PII detection</span></div>
+        <div class="detail-row"><span class="detail-label">Encrypt ML model artifacts</span><span class="detail-value">→ SageMaker uses S3 KMS key for artifacts; specify KMSKeyId in training job config</span></div>
+        <div class="detail-row"><span class="detail-label">Compliance audit evidence</span><span class="detail-value">→ AWS Audit Manager (your resources) + AWS Artifact (AWS's reports) + CloudTrail logs</span></div>
+        <div class="detail-row"><span class="detail-label">Detect model bias post-deploy</span><span class="detail-value">→ SageMaker Clarify + SageMaker Model Monitor bias drift monitoring + CloudWatch alarms</span></div>
+        <div class="detail-row"><span class="detail-label">Prompt injection attack</span><span class="detail-value">→ Bedrock Guardrails prompt attack detection + input validation Lambda + system prompt hardening</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Scenario questions are the majority of AI Practitioner exam. Map requirement → service: Harmful output → Guardrails. Bias → Clarify. Audit trail → CloudTrail + Audit Manager. PII → Comprehend or Guardrails. Network isolation → VPC + PrivateLink. Compliance reports → Artifact.</div>
+    </div>
+
+    <!-- Responsible AI Pillars -->
+    <div class="card" data-category="security" style="--card-accent:#f87171;--card-icon-bg:rgba(248,113,113,0.12);--card-tag-bg:rgba(248,113,113,0.12)">
+      <div class="card-head">
+        <div class="card-icon">⚖️</div>
+        <div class="card-titles">
+          <div class="card-name">Responsible AI — AWS Framework</div>
+          <div class="card-full">AWS's 8 dimensions of responsible AI</div>
+        </div>
+        <div class="card-tag">RESPONSIBLE AI</div>
+      </div>
+      <div class="card-desc">AWS defines responsible AI across eight core dimensions. Understanding these pillars and the AWS services that address each is essential for the AI Practitioner exam.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Fairness</span><span class="detail-value">Ensure model doesn't discriminate based on protected attributes. → SageMaker Clarify (bias detection)</span></div>
+        <div class="detail-row"><span class="detail-label">Explainability</span><span class="detail-value">Understand why the model made a prediction. → Clarify SHAP values, SageMaker Model Cards</span></div>
+        <div class="detail-row"><span class="detail-label">Privacy & Security</span><span class="detail-value">Protect user data and model artifacts. → KMS, VPC, IAM, Guardrails sensitive info filtering, Comprehend PII</span></div>
+        <div class="detail-row"><span class="detail-label">Safety</span><span class="detail-value">Prevent harmful outputs and misuse. → Bedrock Guardrails, content filtering, human-in-the-loop with A2I</span></div>
+        <div class="detail-row"><span class="detail-label">Controllability</span><span class="detail-value">Humans can oversee and intervene in AI decisions. → SageMaker Model Monitor, A2I (Augmented AI), approval workflows</span></div>
+        <div class="detail-row"><span class="detail-label">Veracity & Robustness</span><span class="detail-value">Model performs reliably across conditions. → Model Monitor (drift), adversarial testing, SageMaker Clarify</span></div>
+        <div class="detail-row"><span class="detail-label">Transparency</span><span class="detail-value">Disclose AI involvement and model limitations. → SageMaker Model Cards, watermarking (Titan), documentation</span></div>
+        <div class="detail-row"><span class="detail-label">Governance</span><span class="detail-value">Organizational policies and oversight. → Model Registry approval workflows, Audit Manager, CloudTrail, SageMaker Role Manager</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Know all 8 pillars and their AWS service mappings. Fairness + Explainability = SageMaker Clarify. Safety = Bedrock Guardrails. Controllability = human-in-the-loop (A2I). Transparency = Model Cards + watermarking. Governance = Model Registry + Audit Manager. Heavily tested!</div>
+    </div>
+
+  </div>
+
+  <!-- ========== HARDWARE & INFRA ========== -->
+  <div class="section-header" data-section="hardware">
+    <div class="section-dot" style="background:#fb923c"></div>
+    <h2>Amazon Hardware & Infrastructure for AI</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="cards-grid" data-section="hardware">
+
+    <!-- Amazon's Hardware for AI -->
+    <div class="card" data-category="hardware" style="--card-accent:#fb923c;--card-icon-bg:rgba(251,146,60,0.12);--card-tag-bg:rgba(251,146,60,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🖥️</div>
+        <div class="card-titles">
+          <div class="card-name">Amazon's Custom AI Hardware</div>
+          <div class="card-full">Trainium, Inferentia, and GPU instances</div>
+        </div>
+        <div class="card-tag">HARDWARE</div>
+      </div>
+      <div class="card-desc">AWS offers purpose-built AI chips and GPU instances at every price/performance point — from cost-optimized custom silicon to the highest-performance GPU clusters for frontier model training.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">AWS Trainium (Trn1)</span><span class="detail-value">AWS-designed chip optimized for training deep learning models. Up to 50% cost savings vs GPU alternatives. Best for training LLMs and large CNNs. Uses Neuron SDK.</span></div>
+        <div class="detail-row"><span class="detail-label">AWS Inferentia (Inf1/Inf2)</span><span class="detail-value">AWS-designed chip optimized for inference (not training). Lowest cost per inference on AWS. Inf2 supports LLM inference. Neuron SDK required.</span></div>
+        <div class="detail-row"><span class="detail-label">P-series (GPU)</span><span class="detail-value">p4d.24xlarge (A100 GPUs), p3.16xlarge (V100) — NVIDIA GPUs for training. Flexible but expensive.</span></div>
+        <div class="detail-row"><span class="detail-label">G-series (GPU)</span><span class="detail-value">g4dn (T4 GPUs), g5 (A10G) — for graphics, inference, and lighter training workloads.</span></div>
+        <div class="detail-row"><span class="detail-label">SageMaker HyperPod</span><span class="detail-value">Managed cluster for large-scale distributed training. Automatically recovers from node failures during multi-week training runs.</span></div>
+        <div class="detail-row"><span class="detail-label">EC2 UltraClusters</span><span class="detail-value">Thousands of Trn1/P4d instances connected via 400 Gbps EFA networking for petabyte-scale model training</span></div>
+        <div class="detail-row"><span class="detail-label">Neuron SDK</span><span class="detail-value">AWS SDK to compile and optimize PyTorch/TensorFlow models for Trainium and Inferentia chips</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>Trainium = TRAINING custom models cheaply. Inferentia = INFERENCE (running models) cheaply. Both use Neuron SDK. GPU (P/G instances) = flexible, more expensive. SageMaker HyperPod = fault-tolerant distributed training cluster. Key: Trainium for training, Inferentia for inference = cost optimization.</div>
+    </div>
+
+    <!-- SageMaker Overview Deep -->
+    <div class="card" data-category="hardware" style="--card-accent:#fb923c;--card-icon-bg:rgba(251,146,60,0.12);--card-tag-bg:rgba(251,146,60,0.12)">
+      <div class="card-head">
+        <div class="card-icon">🧬</div>
+        <div class="card-titles">
+          <div class="card-name">SageMaker — Models & Humans</div>
+          <div class="card-full">Built-in algorithms, A2I, and Data Wrangler</div>
+        </div>
+        <div class="card-tag">HARDWARE</div>
+      </div>
+      <div class="card-desc">SageMaker's built-in algorithms provide optimized implementations of common ML algorithms. Augmented AI (A2I) adds human review workflows. Data Wrangler simplifies feature engineering.</div>
+      <div class="card-details">
+        <div class="detail-row"><span class="detail-label">Built-in Algorithms</span><div class="pill-list"><span class="pill">XGBoost</span><span class="pill">Linear Learner</span><span class="pill">DeepAR (forecasting)</span><span class="pill">BlazingText (NLP)</span><span class="pill">Image Classification</span><span class="pill">Object Detection</span><span class="pill">Seq2Seq</span><span class="pill">KMeans</span><span class="pill">PCA</span><span class="pill">IP Insights</span></div></div>
+        <div class="detail-row"><span class="detail-label">Amazon A2I</span><span class="detail-value">Augmented AI — build human review workflows for ML predictions below confidence threshold. Integrates with Textract, Rekognition, and custom models.</span></div>
+        <div class="detail-row"><span class="detail-label">Data Wrangler</span><span class="detail-value">GUI for data preparation in Studio: import from 40+ sources, 300+ transforms, profile data, detect bias, export to Feature Store or pipeline.</span></div>
+        <div class="detail-row"><span class="detail-label">Autopilot</span><span class="detail-value">AutoML for tabular data — automatically tries multiple algorithms (XGBoost, linear, MLP) and picks the best with full explainability report.</span></div>
+        <div class="detail-row"><span class="detail-label">Training Compiler</span><span class="detail-value">Optimizes DL training jobs (graphs, memory) — up to 50% faster training on supported GPU instances at no extra cost.</span></div>
+        <div class="detail-row"><span class="detail-label">Spot Training</span><span class="detail-value">Use EC2 Spot Instances for training (up to 90% cheaper). SageMaker auto-resumes from checkpoint on interruption.</span></div>
+      </div>
+      <div class="exam-tip"><strong>⚡ EXAM TIP</strong>A2I = human-in-the-loop for low-confidence predictions (not the same as Ground Truth labeling). Autopilot = AutoML (auto-tries algorithms). Data Wrangler = visual data prep. Spot Training = cheapest training option. DeepAR = time-series forecasting built-in algorithm.</div>
+    </div>
+
+  </div>
+
 </main>
 
 <script>
@@ -1597,7 +2163,7 @@ function update() {
     }
   }
 
-  resultCount.textContent = `${visible} service${visible !== 1 ? 's' : ''}`;
+  resultCount.textContent = `${visible} topic${visible !== 1 ? 's' : ''}`;
   noResults.style.display = visible === 0 ? 'block' : 'none';
 }
 
